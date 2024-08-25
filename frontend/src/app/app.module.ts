@@ -19,7 +19,8 @@ import {AdminComponent} from './admin/admin.component';
 import {SignupComponent} from './signup/signup.component';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import {MatIconRegistry} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
+// import {FlexLayoutModule} from '@angular/flex-layout';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     AngularMaterialModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -57,7 +58,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     ApiService,
     UserService,
     ConfigService,
-    MatIconRegistry
+    MatIconRegistry,
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent],
 })
