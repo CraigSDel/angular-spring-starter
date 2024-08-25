@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {HomeComponent} from './home.component';
 import {ApiCardComponent, GithubComponent} from '../component';
 import {MockApiService} from '../service/mocks/api.service.mock';
@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         HomeComponent,
