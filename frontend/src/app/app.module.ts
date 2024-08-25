@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -22,46 +22,40 @@ import {MatIconRegistry} from '@angular/material/icon';
 // import {FlexLayoutModule} from '@angular/flex-layout';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    ApiCardComponent,
-    HomeComponent,
-    GithubComponent,
-    LoginComponent,
-    NotFoundComponent,
-    AccountMenuComponent,
-    ChangePasswordComponent,
-    ForbiddenComponent,
-    AdminComponent,
-    SignupComponent
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    // FlexLayoutModule,
-    AngularMaterialModule
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-    LoginGuard,
-    GuestGuard,
-    AdminGuard,
-    FooService,
-    AuthService,
-    ApiService,
-    UserService,
-    ConfigService,
-    MatIconRegistry,
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+        ApiCardComponent,
+        HomeComponent,
+        GithubComponent,
+        LoginComponent,
+        NotFoundComponent,
+        AccountMenuComponent,
+        ChangePasswordComponent,
+        ForbiddenComponent,
+        AdminComponent,
+        SignupComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    bootstrap: [AppComponent], imports: [BrowserAnimationsModule,
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        // FlexLayoutModule,
+        AngularMaterialModule], providers: [
+        LoginGuard,
+        GuestGuard,
+        AdminGuard,
+        FooService,
+        AuthService,
+        ApiService,
+        UserService,
+        ConfigService,
+        MatIconRegistry,
+        provideAnimationsAsync(),
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {SignupComponent} from './signup.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularMaterialModule} from '../angular-material/angular-material.module';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ApiService, AuthService, ConfigService, FooService, UserService} from '../service';
 import {AppRoutingModule} from '../app-routing.module';
 import {HomeComponent} from '../home';
@@ -23,14 +23,7 @@ describe('SignupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        AngularMaterialModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        AppRoutingModule],
-      declarations: [
+    declarations: [
         SignupComponent,
         HomeComponent,
         LoginComponent,
@@ -39,18 +32,25 @@ describe('SignupComponent', () => {
         NotFoundComponent,
         ForbiddenComponent,
         ApiCardComponent,
-        GithubComponent],
-      providers: [
+        GithubComponent
+    ],
+    imports: [BrowserAnimationsModule,
+        AngularMaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule],
+    providers: [
         {
-          provide: ApiService,
-          useClass: MockApiService
+            provide: ApiService,
+            useClass: MockApiService
         },
         AuthService,
         UserService,
         FooService,
-        ConfigService
-      ]
-    })
+        ConfigService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+})
       .compileComponents();
   }));
 

@@ -9,7 +9,7 @@ import {ApiCardComponent, FooterComponent, GithubComponent, HeaderComponent} fro
 import {ApiService, AuthService, ConfigService, FooService, UserService} from './service';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './home';
 import {LoginComponent} from './login';
@@ -24,7 +24,7 @@ import {MatIconRegistry} from '@angular/material/icon';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         AppComponent,
         HeaderComponent,
         FooterComponent,
@@ -38,28 +38,26 @@ describe('AppComponent', () => {
         ForbiddenComponent,
         AdminComponent,
         SignupComponent
-      ],
-      imports: [
-        AngularMaterialModule,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [AngularMaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule,
         RouterTestingModule,
-        AppRoutingModule
-      ],
-      providers: [
+        AppRoutingModule],
+    providers: [
         MatIconRegistry,
         {
-          provide: ApiService,
-          useClass: MockApiService
+            provide: ApiService,
+            useClass: MockApiService
         },
         AuthService,
         UserService,
         FooService,
-        ConfigService
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+        ConfigService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+}).compileComponents();
   }));
 
   it('should create the app', async(() => {

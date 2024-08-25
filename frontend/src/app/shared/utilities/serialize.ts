@@ -1,4 +1,4 @@
-import {HttpParams} from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import {looseInvalid} from './loose-invalid';
 
 export function serialize(obj: any): HttpParams {

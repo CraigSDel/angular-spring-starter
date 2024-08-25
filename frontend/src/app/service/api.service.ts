@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {serialize} from '../shared/utilities/serialize';
 import {Observable} from 'rxjs';
