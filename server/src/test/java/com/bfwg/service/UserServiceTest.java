@@ -1,9 +1,12 @@
 package com.bfwg.service;
 
 import com.bfwg.AbstractTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created by fan.jin on 2017-04-04.
@@ -13,56 +16,56 @@ public class UserServiceTest extends AbstractTest {
     @Autowired
     public UserService userService;
 
-    @Test(expected = AccessDeniedException.class)
-    public void testFindAllWithoutUser() throws AccessDeniedException {
-        userService.findAll();
+    @Test
+    public void testFindAllWithoutUser() {
+        assertThrows(AccessDeniedException.class, () -> userService.findAll());
     }
 
-    @Test(expected = AccessDeniedException.class)
-    public void testFindAllWithUser() throws AccessDeniedException {
+    @Test
+    public void testFindAllWithUser() {
         mockAuthenticatedUser(buildTestUser());
-        userService.findAll();
+        assertThrows(AccessDeniedException.class, () -> userService.findAll());
     }
 
     @Test
-    public void testFindAllWithAdmin() throws AccessDeniedException {
+    public void testFindAllWithAdmin() {
         mockAuthenticatedUser(buildTestAdmin());
-        userService.findAll();
+        assertNotNull(userService.findAll());
     }
 
-    @Test(expected = AccessDeniedException.class)
-    public void testFindByIdWithoutUser() throws AccessDeniedException {
-        userService.findById(1L);
+    @Test
+    public void testFindByIdWithoutUser() {
+        assertThrows(AccessDeniedException.class, () -> userService.findById(1L));
     }
 
-    @Test(expected = AccessDeniedException.class)
-    public void testFindByIdWithUser() throws AccessDeniedException {
+    @Test
+    public void testFindByIdWithUser() {
         mockAuthenticatedUser(buildTestUser());
-        userService.findById(1L);
+        assertThrows(AccessDeniedException.class, () -> userService.findById(1L));
     }
 
     @Test
-    public void testFindByIdWithAdmin() throws AccessDeniedException {
+    public void testFindByIdWithAdmin() {
         mockAuthenticatedUser(buildTestAdmin());
-        userService.findById(1L);
+        assertNotNull(userService.findById(1L));
     }
 
 
     @Test
-    public void testFindByUsernameWithoutUser() throws AccessDeniedException {
-        userService.findByUsername("user");
+    public void testFindByUsernameWithoutUser() {
+        assertNotNull(userService.findByUsername("user"));
     }
 
     @Test
-    public void testFindByUsernameWithUser() throws AccessDeniedException {
+    public void testFindByUsernameWithUser() {
         mockAuthenticatedUser(buildTestUser());
-        userService.findByUsername("user");
+        assertNotNull(userService.findByUsername("user"));
     }
 
     @Test
-    public void testFindByUsernameWithAdmin() throws AccessDeniedException {
+    public void testFindByUsernameWithAdmin() {
         mockAuthenticatedUser(buildTestAdmin());
-        userService.findByUsername("user");
+        assertNotNull(userService.findByUsername("user"));
     }
 
 }

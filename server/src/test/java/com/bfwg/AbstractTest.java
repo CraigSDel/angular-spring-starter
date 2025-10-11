@@ -7,15 +7,13 @@ import com.bfwg.repository.UserRepository;
 import com.bfwg.security.auth.AnonAuthentication;
 import com.bfwg.security.auth.TokenBasedAuthentication;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,6 @@ import java.util.List;
 /**
  * Created by fan.jin on 2016-11-07.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
 public abstract class AbstractTest {
 
@@ -34,14 +31,14 @@ public abstract class AbstractTest {
     protected ObjectMapper objectMapper;
     protected SecurityContext securityContext;
 
-    @Before
+    @BeforeEach
     public final void beforeAbstractTest() {
         securityContext = Mockito.mock(SecurityContext.class);
         SecurityContextHolder.setContext(securityContext);
         Mockito.when(securityContext.getAuthentication()).thenReturn(new AnonAuthentication());
     }
 
-    @After
+    @AfterEach
     public final void afterAbstractTest() {
         SecurityContextHolder.clearContext();
     }
