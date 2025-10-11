@@ -3,7 +3,7 @@ package com.bfwg.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Created by fan.jin on 2016-11-03.

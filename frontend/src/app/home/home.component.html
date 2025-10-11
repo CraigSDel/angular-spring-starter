@@ -1,10 +1,10 @@
-<div class="content" fxLayout="row" fxLayoutAlign="center none">
+<div class="content flex-row flex-center">
   <app-api-card
     (apiClick)="makeRequest($event)"
     [responseObj]="fooResponse"
     apiText="/api/foo"
     content='This is an demo public endpoint which requires no authentication.'
-    fxFlex
+    class="flex-card"
     imgUrl="assets/image/foo.png"
     subTitle="Public"
     title='"Foo"'
@@ -16,7 +16,7 @@
     [responseObj]="whoamIResponse"
     apiText="/api/whoami"
     content='The regular endpoint which returns the current user information. You have to sign in as either a User or an Admin to gain the access to this endpoint.'
-    fxFlex
+    class="flex-card"
     imgUrl="assets/image/user.png"
     subTitle="Authorized role: USER"
     title='"Who am I"'
@@ -27,9 +27,8 @@
     (apiClick)="makeRequest($event)"
     [responseObj]="allUserResponse"
     apiText="/api/user/all"
-    class="last"
+    class="last flex-card"
     content='This endpoint will give you a list of all the users. You have to sign in as an Admin to gain the access to this endpoint.'
-    fxFlex
     imgUrl="assets/image/admin.png"
     subTitle="Authorized role: ADMIN"
     title='"All users"'

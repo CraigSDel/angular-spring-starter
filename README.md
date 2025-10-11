@@ -24,8 +24,8 @@
 </p>
 
 ## Quick start
-**Make sure you have Maven and Java 11 or greater**
-**Make sure you also have NPM 6.12.0, Node 12.13.0 and angular-cli@9.1.3 globally installed**
+**Make sure you have Maven and Java 17 or greater**
+**Make sure you also have NPM 10+ and Node 20+ installed globally**
 ```bash
 # clone our repo
 # --depth 1 removes all but one .git commit history
@@ -35,7 +35,6 @@ git clone --depth 1 https://github.com/bfwg/angular-spring-starter.git
 cd angular-spring-starter/frontend
 
 # install the frontend dependencies with npm
-# npm install @angular/cli@9.1.3 -g
 npm install
 
 # start the frontend app
@@ -73,11 +72,10 @@ git clone --depth 1 https://github.com/bfwg/angular-spring-starter.git
 cd angular-spring-starter/frontend
 
 # install the frontend dependencies with npm
-# npm install @angular/cli@9.1.3 -g
 npm install
 
 # build frontend project to /server/src/main/resources/static folder
-ng build
+npm run build
 
 # change directory to the repo's backend folder
 cd ../server

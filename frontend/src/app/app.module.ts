@@ -19,7 +19,6 @@ import {AdminComponent} from './admin/admin.component';
 import {SignupComponent} from './signup/signup.component';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 import {MatIconRegistry} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -44,7 +43,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     AngularMaterialModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

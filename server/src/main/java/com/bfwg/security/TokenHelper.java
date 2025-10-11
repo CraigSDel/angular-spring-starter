@@ -2,7 +2,7 @@ package com.bfwg.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,8 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Map;
 
@@ -24,7 +26,6 @@ import java.util.Map;
 @Component
 public class TokenHelper {
 
-    private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
     @Autowired
     @Qualifier("customUserDetailsService")
     private UserDetailsService userDetailsService;
@@ -39,6 +40,10 @@ public class TokenHelper {
     @Value("${jwt.cookie}")
     private String AUTH_COOKIE;
 
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+    }
+
     public String getUsernameFromToken(String token) {
         String username;
         try {
@@ -52,11 +57,11 @@ public class TokenHelper {
 
     public String generateToken(String username) {
         return Jwts.builder()
-                .setIssuer(APP_NAME)
-                .setSubject(username)
-                .setIssuedAt(generateCurrentDate())
-                .setExpiration(generateExpirationDate())
-                .signWith(SIGNATURE_ALGORITHM, SECRET)
+                .issuer(APP_NAME)
+                .subject(username)
+                .issuedAt(generateCurrentDate())
+                .expiration(generateExpirationDate())
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -64,9 +69,10 @@ public class TokenHelper {
         Claims claims;
         try {
             claims = Jwts.parser()
-                    .setSigningKey(this.SECRET)
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
         } catch (Exception e) {
             claims = null;
         }
@@ -75,9 +81,9 @@ public class TokenHelper {
 
     String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(generateExpirationDate())
-                .signWith(SIGNATURE_ALGORITHM, SECRET)
+                .claims(claims)
+                .expiration(generateExpirationDate())
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -96,8 +102,12 @@ public class TokenHelper {
         String refreshedToken;
         try {
             final Claims claims = getClaimsFromToken(token);
-            claims.setIssuedAt(generateCurrentDate());
-            refreshedToken = generateToken(claims);
+            return Jwts.builder()
+                    .claims(claims)
+                    .issuedAt(generateCurrentDate())
+                    .expiration(generateExpirationDate())
+                    .signWith(getSigningKey())
+                    .compact();
         } catch (Exception e) {
             refreshedToken = null;
         }
