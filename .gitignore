@@ -7,4 +7,7 @@ frontend/*.log
 frontend/*.pid
 server/*.log
 server/*.pid
-*.md
+.DS_Store
+check-versions.sh
+UPGRADE_*.md
+DEPENDENCIES_UPGRADE.md
