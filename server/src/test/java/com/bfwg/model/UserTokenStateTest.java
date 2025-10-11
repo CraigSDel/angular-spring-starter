@@ -13,16 +13,16 @@ public class UserTokenStateTest {
 
         UserTokenState tokenState = new UserTokenState(accessToken, expiresIn);
 
-        assertEquals(accessToken, tokenState.getAccessToken());
-        assertEquals(expiresIn, tokenState.getExpiresIn());
+        assertEquals(accessToken, tokenState.getAccess_token());
+        assertEquals(Long.valueOf(expiresIn), tokenState.getExpires_in());
     }
 
     @Test
     public void testUserTokenStateDefaultConstructor() {
         UserTokenState tokenState = new UserTokenState();
 
-        assertNull(tokenState.getAccessToken());
-        assertEquals(0, tokenState.getExpiresIn());
+        assertNull(tokenState.getAccess_token());
+        assertNull(tokenState.getExpires_in());
     }
 }
 

@@ -18,12 +18,14 @@ public class ResourceConflictExceptionTest {
     }
 
     @Test
-    public void testResourceConflictExceptionWithMessage() {
-        String message = "Resource conflict";
+    public void testResourceConflictExceptionSetResourceId() {
+        Long id = 2L;
+        String message = "Another conflict";
 
-        ResourceConflictException exception = new ResourceConflictException(message);
+        ResourceConflictException exception = new ResourceConflictException(id, message);
+        exception.setResourceId(3L);
 
-        assertNull(exception.getResourceId());
+        assertEquals(3L, exception.getResourceId());
         assertEquals(message, exception.getMessage());
     }
 }

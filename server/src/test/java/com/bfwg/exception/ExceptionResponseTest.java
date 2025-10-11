@@ -8,11 +8,23 @@ public class ExceptionResponseTest {
 
     @Test
     public void testExceptionResponse() {
-        String message = "Error message";
+        String errorCode = "ERR001";
+        String errorMessage = "Error message";
 
-        ExceptionResponse response = new ExceptionResponse(message);
+        ExceptionResponse response = new ExceptionResponse();
+        response.setErrorCode(errorCode);
+        response.setErrorMessage(errorMessage);
 
-        assertEquals(message, response.getErrorMessage());
+        assertEquals(errorCode, response.getErrorCode());
+        assertEquals(errorMessage, response.getErrorMessage());
+    }
+
+    @Test
+    public void testDefaultConstructor() {
+        ExceptionResponse response = new ExceptionResponse();
+
+        assertNull(response.getErrorCode());
+        assertNull(response.getErrorMessage());
     }
 }
 

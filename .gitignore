@@ -2,3 +2,9 @@
 /frontend/.angular/cache/18.2.1/angular-spring-starter/.tsbuildinfo
 /frontend/frontend.iml
 /frontend/node_modules_old/
+frontend/.angular/
+frontend/*.log
+frontend/*.pid
+server/*.log
+server/*.pid
+*.md
